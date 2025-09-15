@@ -26,5 +26,19 @@ def get_email_from_subject_line(subject_line: str) -> dict:
     return content
 
 
+@mcp.tool()
+def save_set_list(set_list: str, subject_line: str) -> dict:
+    """
+    set_list: The set list to save
+    subject_line: The subject line of the email to associate with the set list
+
+    Returns a confirmation message.
+    """
+    # Here you would implement the logic to save the set list
+    with open(f"data/set_list_{subject_line}.txt", "w") as file:
+        file.write(set_list)
+    return {"status": "success", "message": "Set list saved successfully."}
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
