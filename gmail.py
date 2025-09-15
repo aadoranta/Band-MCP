@@ -12,8 +12,8 @@ from googleapiclient.discovery import build
 
 # ----- CONFIG -----
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
-CREDENTIALS = pathlib.Path("credentials.json")
-TOKEN = pathlib.Path("token.json")
+CREDENTIALS = pathlib.Path("auth/credentials.json")
+TOKEN = pathlib.Path("auth/token.json")
 # ------------------
 
 
@@ -29,7 +29,7 @@ def get_gmail_service():
             if not CREDENTIALS.exists():
                 raise FileNotFoundError("credentials.json not found in working directory.")
             flow = InstalledAppFlow.from_client_secrets_file(str(CREDENTIALS), SCOPES)
-            creds = flow.run_local_server(port=0)  # opens browser for first-time consent
+            creds = flow.run_local_server(port=0)
 
         with open(TOKEN, "w") as f:
             f.write(creds.to_json())
